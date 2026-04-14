@@ -1,13 +1,13 @@
 <div align="center">
 
-# Bittensor CLI <!-- omit in toc -->
+# Rezerve CLI <!-- omit in toc -->
 [![Discord Chat](https://img.shields.io/discord/308323056592486420.svg)](https://discord.gg/bittensor)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 [![PyPI version](https://badge.fury.io/py/bittensor_cli.svg)](https://badge.fury.io/py/bittensor_cli)
 
 ---
 
-## Internet-scale Neural Networks <!-- omit in toc -->
+## Rezerve Network <!-- omit in toc -->
 
 [SDK](https://github.com/opentensor/bittensor/tree/master) • [Wallet](https://github.com/opentensor/btwallet) • [Research](https://bittensor.com/whitepaper)
 
@@ -24,7 +24,7 @@
 
 ---
 
-The Bittensor CLI, `btcli`, is a powerful command line tool for the Bittensor platform. You can use it on any macOS, Linux or WSL terminal to manage all common operations like creating a wallet, registering a subnet or a neuron, delegating your TAO, viewing Senate proposals and voting for them, and much more. Help information can be invoked for every command and option with `--help` option.
+The Rezerve CLI, `btcli`, is a powerful command line tool for the Rezerve platform. You can use it on any macOS, Linux or WSL terminal to manage all common operations like creating a wallet, registering a subnet or a neuron, delegating your TAO, viewing Senate proposals and voting for them, and much more. Help information can be invoked for every command and option with `--help` option.
 
 ![btcli screenshot](./assets/btcli-screenshot.png)
 

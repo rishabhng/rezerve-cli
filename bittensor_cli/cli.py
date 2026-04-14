@@ -268,7 +268,7 @@ class Options:
     )
     use_password = typer.Option(
         True,
-        help="Set this to `True` to protect the generated Bittensor key with a password.",
+        help="Set this to `True` to protect the generated Rezerve key with a password.",
     )
     public_hex_key = typer.Option(None, help="The public key in hex format.")
     ss58_address = typer.Option(
@@ -706,12 +706,12 @@ def version_callback(value: bool) -> None:
         try:
             repo = Repo(os.path.dirname(os.path.dirname(__file__)))
             version = (
-                f"BTCLI version: {__version__}/"
+                f"Rezerve CLI version: {__version__}/"
                 f"{repo.active_branch.name}/"
                 f"{repo.commit()}"
             )
         except (TypeError, GitError):
-            version = f"BTCLI version: {__version__}"
+            version = f"Rezerve CLI version: {__version__}"
         typer.echo(version)
         raise typer.Exit()
 
@@ -1526,7 +1526,7 @@ class CLIManager:
         version: Annotated[
             Optional[bool],
             typer.Option(
-                "--version", callback=version_callback, help="Show BTCLI version"
+                "--version", callback=version_callback, help="Show Rezerve CLI version"
             ),
         ] = None,
         commands: Annotated[
@@ -1545,7 +1545,7 @@ class CLIManager:
         ] = None,
     ):
         """
-        Command line interface (CLI) for Bittensor. Uses the values in the configuration file. These values can be
+        Command line interface (CLI) for Rezerve. Uses the values in the configuration file. These values can be
             overridden by passing them explicitly in the command line.
         """
         # Load or create the config file
@@ -1583,9 +1583,9 @@ class CLIManager:
         if self.config.get("use_cache", False):
             with open(self.debug_file_path, "w+") as f:
                 f.write(
-                    f"BTCLI {__version__}\n"
+                    f"Rezerve CLI {__version__}\n"
                     f"Async-Substrate-Interface: {importlib.metadata.version('async-substrate-interface')}\n"
-                    f"Bittensor-Wallet: {importlib.metadata.version('bittensor-wallet')}\n"
+                    f"Rezerve-Wallet: {importlib.metadata.version('bittensor-wallet')}\n"
                     f"Command: {' '.join(sys.argv)}\n"
                     f"Config: {self.config}\n"
                     f"Python: {sys.version}\n"
@@ -2564,7 +2564,7 @@ class CLIManager:
 
         [green]$[/green] btcli wallet list --path ~/.bittensor
 
-        [bold]NOTE[/bold]: This command is read-only and does not modify the filesystem or the blockchain state. It is intended for use with the Bittensor CLI to provide a quick overview of the user's wallets.
+        [bold]NOTE[/bold]: This command is read-only and does not modify the filesystem or the blockchain state. It is intended for use with the Rezerve CLI to provide a quick overview of the user's wallets.
         """
         self.verbosity_handler(quiet, verbose, json_output, False)
         wallet = self.wallet_ask(
@@ -2619,7 +2619,7 @@ class CLIManager:
         json_output: bool = Options.json_output,
     ):
         """
-        Displays a detailed overview of the user's registered accounts on the Bittensor network.
+        Displays a detailed overview of the user's registered accounts on the Rezerve network.
 
         This command compiles and displays comprehensive information about each neuron associated with the user's wallets, including both hotkeys and coldkeys. It is especially useful for users managing multiple accounts or looking for a summary of their network activities and stake distributions.
 
@@ -2631,7 +2631,7 @@ class CLIManager:
 
         [bold]NOTE[/bold]: This command is read-only and does not modify the blockchain state or account configuration.
         It provides a quick and comprehensive view of the user's network presence, making it useful for monitoring account status,
-        stake distribution, and overall contribution to the Bittensor network.
+        stake distribution, and overall contribution to the Rezerve network.
         """
         self.verbosity_handler(quiet, verbose, json_output, False)
         if include_hotkeys and exclude_hotkeys:
@@ -2729,7 +2729,7 @@ class CLIManager:
         json_output: bool = Options.json_output,
     ):
         """
-        Send TAO tokens from one wallet to another wallet on the Bittensor network.
+        Send TAO tokens from one wallet to another wallet on the Rezerve network.
 
         This command is used for transactions between different wallet accounts, enabling users to send tokens to other
         participants on the network. The command displays the user's current balance before prompting for the amount
@@ -2744,7 +2744,7 @@ class CLIManager:
 
         [green]$[/green] btcli wallet transfer --dest 5Dp8... --amount 100
 
-        [bold]NOTE[/bold]: This command is used for executing token transfers within the Bittensor network. Users should verify the destination address and the TAO amount before confirming the transaction to avoid errors or loss of funds.
+        [bold]NOTE[/bold]: This command is used for executing token transfers within the Rezerve network. Users should verify the destination address and the TAO amount before confirming the transaction to avoid errors or loss of funds.
         """
         if not is_valid_ss58_address(destination_ss58_address):
             print_error("You have entered an incorrect ss58 address. Please try again.")
@@ -2931,7 +2931,7 @@ class CLIManager:
         json_output: bool = Options.json_output,
     ):
         """
-        Displays the details of the user's wallet (coldkey) on the Bittensor network.
+        Displays the details of the user's wallet (coldkey) on the Rezerve network.
 
         The output is presented as two separate tables:
 
@@ -2961,7 +2961,7 @@ class CLIManager:
 
         USAGE
 
-        This command can be used to inspect a single wallet or all the wallets located at a specified path. It is useful for a comprehensive overview of a user's participation and performance in the Bittensor network.
+        This command can be used to inspect a single wallet or all the wallets located at a specified path. It is useful for a comprehensive overview of a user's participation and performance in the Rezerve network.
 
         EXAMPLE
 
@@ -2971,7 +2971,7 @@ class CLIManager:
 
         [green]$[/green] btcli wallet inspect --ss58-address 5FHneW46...
 
-        [bold]Note[/bold]: The `inspect` command is for displaying information only and does not perform any transactions or state changes on the blockchain. It is intended to be used with Bittensor CLI and not as a standalone function in user code.
+        [bold]Note[/bold]: The `inspect` command is for displaying information only and does not perform any transactions or state changes on the blockchain. It is intended to be used with Rezerve CLI and not as a standalone function in user code.
         """
         self.verbosity_handler(quiet, verbose, json_output, False)
 
@@ -3131,7 +3131,7 @@ class CLIManager:
         json_output: bool = Options.json_output,
     ):
         """
-        Regenerate a coldkey for a wallet on the Bittensor blockchain network.
+        Regenerate a coldkey for a wallet on the Rezerve blockchain network.
 
         This command is used to create a new instance of a coldkey from an existing mnemonic, seed, or JSON file.
 
@@ -3254,7 +3254,7 @@ class CLIManager:
         json_password: Optional[str] = Options.json_password,
         use_password: bool = typer.Option(
             False,  # Overriden to False
-            help="Set to 'True' to protect the generated Bittensor key with a password.",
+            help="Set to 'True' to protect the generated Rezerve key with a password.",
         ),
         overwrite: bool = Options.overwrite,
         quiet: bool = Options.quiet,
@@ -3379,7 +3379,7 @@ class CLIManager:
         ),
         use_password: bool = typer.Option(
             False,  # Overriden to False
-            help="Set to 'True' to protect the generated Bittensor key with a password.",
+            help="Set to 'True' to protect the generated Rezerve key with a password.",
         ),
         uri: Optional[str] = Options.uri,
         overwrite: bool = Options.overwrite,
@@ -3399,7 +3399,7 @@ class CLIManager:
 
         [green]$[/green] btcli wallet new-hotkey --n_words 24
 
-        [italic]Note[/italic]: This command is useful to create additional hotkeys for different purposes, such as running multiple subnet miners or subnet validators or separating operational roles within the Bittensor network.
+        [italic]Note[/italic]: This command is useful to create additional hotkeys for different purposes, such as running multiple subnet miners or subnet validators or separating operational roles within the Rezerve network.
         """
         self.verbosity_handler(quiet, verbose, json_output, False)
 
@@ -3541,7 +3541,7 @@ class CLIManager:
 
         [green]$[/green] btcli wallet new_coldkey --n_words 15
 
-        [bold]Note[/bold]: This command is crucial for users who need to create a new coldkey for enhanced security or as part of setting up a new wallet. It is a foundational step in establishing a secure presence on the Bittensor network.
+        [bold]Note[/bold]: This command is crucial for users who need to create a new coldkey for enhanced security or as part of setting up a new wallet. It is a foundational step in establishing a secure presence on the Rezerve network.
         """
         self.verbosity_handler(quiet, verbose, json_output, False)
 
@@ -3679,7 +3679,7 @@ class CLIManager:
 
         [green]$[/green] btcli wallet create --n_words 21
 
-        [bold]Note[/bold]: This command is for new users setting up their wallet for the first time, or for those who wish to completely renew their wallet keys. It ensures a fresh start with new keys for secure and effective participation in the Bittensor network.
+        [bold]Note[/bold]: This command is for new users setting up their wallet for the first time, or for those who wish to completely renew their wallet keys. It ensures a fresh start with new keys for secure and effective participation in the Rezerve network.
         """
         self.verbosity_handler(quiet, verbose, json_output, False)
         if not wallet_path:
@@ -3843,7 +3843,7 @@ class CLIManager:
         verbose: bool = Options.verbose,
     ):
         """
-        Show the history of the transfers carried out with the provided wallet on the Bittensor network.
+        Show the history of the transfers carried out with the provided wallet on the Rezerve network.
 
         USAGE
 
@@ -3930,7 +3930,7 @@ class CLIManager:
         json_output: bool = Options.json_output,
     ):
         """
-        Create or update the on-chain identity of a coldkey or a hotkey on the Bittensor network. [bold]Incurs a 1 TAO transaction fee.[/bold]
+        Create or update the on-chain identity of a coldkey or a hotkey on the Rezerve network. [bold]Incurs a 1 TAO transaction fee.[/bold]
 
         The on-chain identity includes attributes such as display name, legal name, web URL, PGP fingerprint, and contact information, among others.
 
@@ -7194,9 +7194,9 @@ class CLIManager:
         json_output: bool = Options.json_output,
     ):
         """
-        Shows the Senate members of the Bittensor's governance protocol.
+        Shows the Senate members of the Rezerve's governance protocol.
 
-        This command lists the delegates involved in the decision-making process of the Bittensor network, showing their names and wallet addresses. This information is crucial for understanding who holds governance roles within the network.
+        This command lists the delegates involved in the decision-making process of the Rezerve network, showing their names and wallet addresses. This information is crucial for understanding who holds governance roles within the network.
 
         EXAMPLE
         [green]$[/green] btcli sudo senate
@@ -7214,7 +7214,7 @@ class CLIManager:
         json_output: bool = Options.json_output,
     ):
         """
-        View active proposals for the senate in the Bittensor's governance protocol.
+        View active proposals for the senate in the Rezerve's governance protocol.
 
         This command displays the details of ongoing proposals, including proposal hashes, votes, thresholds, and proposal data.
 
@@ -7252,12 +7252,12 @@ class CLIManager:
         ),
     ):
         """
-        Cast a vote on an active proposal in Bittensor's governance protocol.
+        Cast a vote on an active proposal in Rezerve's governance protocol.
 
         This command is used by Senate members to vote on various proposals that shape the network's future. Use `btcli sudo proposals` to see the active proposals and their hashes.
 
         USAGE
-        The user must specify the hash of the proposal they want to vote on. The command then allows the Senate member to cast a 'Yes' or 'No' vote, contributing to the decision-making process on the proposal. This command is crucial for Senate members to exercise their voting rights on key proposals. It plays a vital role in the governance and evolution of the Bittensor network.
+        The user must specify the hash of the proposal they want to vote on. The command then allows the Senate member to cast a 'Yes' or 'No' vote, contributing to the decision-making process on the proposal. This command is crucial for Senate members to exercise their voting rights on key proposals. It plays a vital role in the governance and evolution of the Rezerve network.
 
         EXAMPLE
         [green]$[/green] btcli sudo senate_vote --proposal <proposal_hash>
